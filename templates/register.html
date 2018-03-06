@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% set active_page = 'register' %}
+
+{% block content %}
+
+<div class="container">
+
+      <form class="form-register" method="post" action="/register">
+        <h2 class="form-register-heading">Please register an account:</h2>
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="username" class="form-control" placeholder="Username" name="username" required autofocus>
+          <br>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Password" name="password" required>
+          <br>
+        <label for="district" class="sr-only">District</label>
+        <input type="text" id="district" class="form-control" placeholder="District" name="district" required>
+          <br>
+        <button class="btn btn-lg btn-default btn-block" type="submit" >Register</button>
+      </form>
+    </div>
+
+    {% if error %}
+    <br>
+    <center><strong>{{error}}</strong></center>
+    {% endif %}
+
+{% endblock %}
+
+

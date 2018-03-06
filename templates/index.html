@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% set active_page = 'index' %}
+
+
+{% block content %}
+{% if error %}
+<center><strong>{{error}}</strong></center>
+<hr>
+<br>
+{% endif %}
+<br><br><br><br><br><br><br><br><br>
+<center>
+    <div id="index_div"><p>
+<h2>Welcome to,</h2>
+<br>
+<h1>The SHOP!</h1>
+        </p>
+        </div>
+    </center>
+{% endblock %}

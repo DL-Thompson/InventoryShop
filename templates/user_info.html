@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% set active_page = 'user' %}
+
+{% block content %}
+
+<div class="user_info">
+
+    <div class="container-fluid">
+        <table class="table table-bordered" style="table-layout: fixed; text-align: center;">
+            <thead style="text-align: center;">
+            <tr style="background-color: #222; color: white; text-align: center;">
+                <th style="text-align: center;">Username</th>
+                <th style="text-align: center;">District</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.district}}</td>
+                    </tr>
+            </tbody>
+        </table>
+        <br>
+</div>
+
+    <hr>
+    <br>
+    {% for order in order_list %}
+    <div class="container-fluid">
+        <table class="table table-bordered" style="table-layout: fixed; text-align: center;">
+            <thead class="table" style="text-align: center;">
+            <tr>
+                <td colspan="4" style="background-color: #222; color: white;">
+                    Order Placed on {{order}}
+                </td>
+            </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Description</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                </tr>
+            </thead>
+            {% for item in order_list[order] %}
+                <tbody>
+                    <tr>
+                        <td>{{order_list[order][item].name}}</td>
+                        <td>{{order_list[order][item].description}}</td>
+                        <td>{{order_list[order][item].price}}</td>
+                        <td>{{order_list[order][item].quantity}}</td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+            <tr>
+                <td colspan="3" style="background-color: #222; color: white;">Total: </td>
+                <td colspan="1">{{order_totals[order]}}</td>
+            </tr>
+        </table>
+    </div>
+    <hr>
+    <br>
+    {% endfor %}
+
+
+
+
+{% endblock %}

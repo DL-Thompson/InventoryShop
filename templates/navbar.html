@@ -1,0 +1,48 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">The SHOP!</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        {% for href, id, caption in navigation_bar %}
+            {% if (id == 'register') or (id == 'login') %}
+
+            {% else %}
+                <li {% if id == active_page %} class="active" {% endif %}>
+                <a href="{{href|e}}" id="navbar-{{id}}">{{caption|e}}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+
+        {% if not current_user.is_authenticated %}
+        {% if 'login' == active_page %}
+          <li class="active"><a id="navbar-login" href="/login"><span class="glyphicon glyphicon-log-in">-Login</span></a></li>
+        {% else %}
+           <li><a id="navbar-login" href="/login"><span class="glyphicon glyphicon-log-in">-Login</span></a></li>
+        {% endif %}
+
+          {% if 'register' == active_page %}
+          <li class="active"><a id="navbar-register" href="/register"><span class="glyphicon glyphicon-user">-Register</span></a></li>
+        {% else %}
+           <li><a id="navbar-register" href="/register"><span class="glyphicon glyphicon-user">-Register</span></a></li>
+        {% endif %}
+    {% else %}
+          <li><p class="navbar-text" href="/">Welcome, {{current_user.id}}!</p></li>
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-out">-Logout</span></a></li>
+    {% endif %}
+
+
+
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+

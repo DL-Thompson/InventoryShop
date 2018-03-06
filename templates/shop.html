@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% set active_page = 'shop' %}
+
+{% block content %}
+
+<center><h2>Inventory</h2></center>
+<hr>
+
+<div class="container-fluid">
+    <form method="post" action="/order_confirm">
+    {% for key in inventory_list %}
+        <h3 style="text-transform: uppercase;"><center>{{key}}</center></h3>
+        <table class="table table-bordered" style="table-layout: fixed; text-align: center;">
+            <thead style="text-align: center;">
+            <tr style="text-align: center;">
+                <th style="text-align: center;">Name</th>
+                <th style="text-align: center;">Description</th>
+                <th style="text-align: center;">Quantity</th>
+                <th style="text-align: center;">Price</th>
+                <th style="text-align: center;">Buy</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in inventory_list[key] %}
+                    <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.price}}</td>
+                    <td><input style="width: 25%;" type="number" placeholder="0" name="{{item.name}}" min="0" max="{{item.quantity}}" value="0"></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+    {% endfor %}
+</div>
+
+{% set total = 0 %}
+<div class="container-fluid">
+        <h3 style="text-transform: uppercase;"><center>{{key}}</center></h3>
+        <table class="table table-bordered" style="table-layout: fixed; text-align: center;">
+            <thead style="text-align: center;">
+            <tr style="text-align: center;">
+                <th style="text-align: center;">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td id="total_sum">{{total}}</td>
+                    </tr>
+            </tbody>
+        </table>
+        <br>
+</div>
+
+<center>
+<input class="btn btn-lg btn-default" type="submit" value="Order">
+    </center>
+</form>
+
+<script>
+    var item_names = [
+        {% for key in inventory_list %}
+        {% for item in inventory_list[key] %}
+            '{{item.name}}',
+        {% endfor %}
+        {% endfor %}
+        'None'];
+
+    var item_prices = [
+        {% for key in inventory_list %}
+        {% for item in inventory_list[key] %}
+            {{item.price}},
+        {% endfor %}
+        {% endfor %}
+        0];
+
+   $(":input").bind('keyup change click', function (e) {
+    if (! $(this).data("previousValue") ||
+           $(this).data("previousValue") != $(this).val()
+       )
+   {
+        var total = 0;
+        var input_list = document.getElementsByTagName('input')
+        for (var i = 0; i < input_list.length; i++) {
+            var input_box = input_list[i];
+            if (input_box.getAttribute('type') == 'number') {
+                var item_name = item_names[i];
+                var price = item_prices[i];
+                var value = input_box.value;
+                var new_price = price * value;
+                total = total + new_price;
+            }
+        }
+
+        $('#total_sum').html(total);
+   }
+
+});
+</script>
+
+{% endblock %}

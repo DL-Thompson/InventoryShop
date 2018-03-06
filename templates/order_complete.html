@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<center><h2>Thanks for your order!</h2></center>
+<hr>
+
+<div class="container-fluid">
+        <h3 style="text-transform: uppercase;"><center>{{key}}</center></h3>
+        <table class="table table-bordered" style="table-layout: fixed; text-align: center;">
+            <thead style="text-align: center;">
+            <tr style="text-align: center;">
+                <th style="text-align: center;">Name</th>
+                <th style="text-align: center;">Description</th>
+                <th style="text-align: center;">Type</th>
+                <th style="text-align: center;">Price</th>
+                <th style="text-align: center;">Ordered</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item_name, item in order_items_list.iteritems() %}
+                    <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.type}}</td>
+                    <td>{{item.price}}</td>
+                    <td>{{item.quantity}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+</div>
+
+{% if total > 0 %}
+<div class="container-fluid">
+        <h3 style="text-transform: uppercase;"><center>{{key}}</center></h3>
+        <table class="table table-bordered" style="table-layout: fixed; text-align: center;">
+            <thead style="text-align: center;">
+            <tr style="text-align: center;">
+                <th style="text-align: center;">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>{{total}}</td>
+                    </tr>
+            </tbody>
+        </table>
+        <br>
+</div>
+{% endif %}
+
+{% if error %}
+<center><strong>{{error}}</strong></center>
+{% endif %}
+
+
+
+{% endblock %}

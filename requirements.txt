@@ -1,0 +1,6 @@
+Flask==0.10.1
+couchdb
+Flask-Login
+itsdangerous
+requests==2.5.3
+flask-bootstrap
